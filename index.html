@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday 💖</title>
+
+<style>
+body {
+    margin: 0;
+    overflow-x: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    text-align: center;
+    color: white;
+}
+
+/* Hearts */
+.heart {
+    position: absolute;
+    font-size: 20px;
+    animation: floatUp 6s linear infinite;
+}
+@keyframes floatUp {
+    from {transform: translateY(100vh);}
+    to {transform: translateY(-10vh);}
+}
+
+/* Balloons */
+.balloon {
+    position: absolute;
+    font-size: 30px;
+    animation: balloonFloat 10s linear infinite;
+}
+@keyframes balloonFloat {
+    from {transform: translateY(100vh);}
+    to {transform: translateY(-10vh);}
+}
+
+/* Card */
+.card {
+    margin-top: 60px;
+    background: rgba(0,0,0,0.3);
+    padding: 20px;
+    border-radius: 20px;
+}
+
+/* Gallery */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+}
+.gallery img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* Buttons */
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background: white;
+    color: #ff4b7d;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 MUSIC -->
+<audio id="music" autoplay loop>
+    <source src="your-music-link.mp3" type="audio/mp3">
+</audio>
+
+<button onclick="playMusic()">🎵 Tap to Start Music</button>
+
+<div class="card">
+    <h1>Happy Birthday, [Her Name] 🎉</h1>
+    <p>You make life brighter 💫</p>
+
+    <button onclick="showSurprise()">Click for Surprise 💌</button>
+
+    <div id="surprise" style="display:none;">
+        <p>You're truly special ❤️</p>
+
+        <!-- Cake -->
+        <h2 onclick="cutCake()">🎂</h2>
+        <p id="cakeMsg"></p>
+
+        <!-- Gallery (6 images) -->
+        <div class="gallery">
+            <img src="photo1.jpg">
+            <img src="photo2.jpg">
+            <img src="photo3.jpg">
+            <img src="photo4.jpg">
+            <img src="photo5.jpg">
+            <img src="photo6.jpg">
+        </div>
+    </div>
+</div>
+
+<script>
+/* Try autoplay */
+let music = document.getElementById("music");
+music.volume = 0.7;
+
+/* Manual play (for mobile restriction) */
+function playMusic() {
+    music.play();
+}
+
+/* Hearts */
+setInterval(() => {
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}, 300);
+
+/* Balloons */
+setInterval(() => {
+    let balloon = document.createElement("div");
+    balloon.className = "balloon";
+    balloon.innerHTML = "🎈";
+    balloon.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(balloon);
+    setTimeout(() => balloon.remove(), 10000);
+}, 800);
+
+/* Confetti */
+function confetti() {
+    for (let i = 0; i < 60; i++) {
+        let conf = document.createElement("div");
+        conf.innerHTML = "🎊";
+        conf.style.position = "absolute";
+        conf.style.left = Math.random() * 100 + "vw";
+        conf.style.top = Math.random() * 100 + "vh";
+        document.body.appendChild(conf);
+        setTimeout(() => conf.remove(), 2000);
+    }
+}
+
+/* Surprise */
+function showSurprise() {
+    document.getElementById("surprise").style.display = "block";
+    confetti();
+}
+
+/* Cake */
+function cutCake() {
+    document.getElementById("cakeMsg").innerText = "Cake cut! 🍰 Make a wish ✨";
+    confetti();
+}
+</script>
+
+</body>
+</html>
