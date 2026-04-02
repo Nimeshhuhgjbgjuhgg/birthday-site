@@ -3,163 +3,193 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday 💖</title>
+<title>For Adwita 💖</title>
 
 <style>
-body {
-    margin: 0;
-    overflow-x: hidden;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-    text-align: center;
-    color: white;
-}
+    body {
+        margin: 0;
+        overflow-x: hidden;
+        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        text-align: center;
+        color: white;
+        min-height: 100vh;
+    }
 
-/* Hearts */
-.heart {
-    position: absolute;
-    font-size: 20px;
-    animation: floatUp 6s linear infinite;
-}
-@keyframes floatUp {
-    from {transform: translateY(100vh);}
-    to {transform: translateY(-10vh);}
-}
+    /* Floating Animations */
+    .heart, .balloon {
+        position: fixed;
+        bottom: -50px;
+        pointer-events: none;
+        z-index: 0;
+    }
 
-/* Balloons */
-.balloon {
-    position: absolute;
-    font-size: 30px;
-    animation: balloonFloat 10s linear infinite;
-}
-@keyframes balloonFloat {
-    from {transform: translateY(100vh);}
-    to {transform: translateY(-10vh);}
-}
+    .heart { font-size: 20px; animation: floatUp 6s linear infinite; }
+    .balloon { font-size: 30px; animation: floatUp 10s linear infinite; }
 
-/* Card */
-.card {
-    margin-top: 60px;
-    background: rgba(0,0,0,0.3);
-    padding: 20px;
-    border-radius: 20px;
-}
+    @keyframes floatUp {
+        from { transform: translateY(0) rotate(0deg); opacity: 1; }
+        to { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+    }
 
-/* Gallery */
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-top: 15px;
-}
-.gallery img {
-    width: 100%;
-    border-radius: 10px;
-}
+    /* Card Styling */
+    .card {
+        position: relative;
+        z-index: 1;
+        margin: 40px auto;
+        width: 90%;
+        max-width: 600px;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        padding: 30px 20px;
+        border-radius: 25px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
 
-/* Buttons */
-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 10px;
-    background: white;
-    color: #ff4b7d;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 10px;
-}
+    h1 { font-size: 2.2rem; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+    .message { font-size: 1.1rem; line-height: 1.6; font-style: italic; }
+
+    /* Responsive Gallery */
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* Default 3 columns */
+        gap: 12px;
+        margin-top: 25px;
+    }
+
+    /* Mobile view: switch to 2 columns so images aren't too small */
+    @media (max-width: 480px) {
+        .gallery { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .gallery img {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        border-radius: 15px;
+        border: 3px solid white;
+        transition: transform 0.3s ease;
+    }
+
+    .gallery img:hover { transform: scale(1.05); }
+
+    /* Interactive Cake */
+    .cake-display {
+        font-size: 60px;
+        cursor: pointer;
+        display: inline-block;
+        margin: 20px 0;
+        transition: transform 0.2s;
+    }
+    .cake-display:active { transform: scale(0.9); }
+
+    /* Buttons */
+    button {
+        padding: 12px 25px;
+        border: none;
+        border-radius: 25px;
+        background: white;
+        color: #ff4b7d;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 1rem;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        margin: 10px;
+        transition: 0.3s;
+    }
+    button:hover { background: #fff0f3; transform: translateY(-2px); }
 </style>
 </head>
 
 <body>
 
-<!-- 🎵 MUSIC -->
-<audio id="music" autoplay loop>
-    <source src="your-music-link.mp3" type="audio/mp3">
+<audio id="music" loop>
+    <source src="song.mp3" type="audio/mp3">
 </audio>
 
-<button onclick="playMusic()">🎵 Tap to Start Music</button>
-
 <div class="card">
-    <h1>Happy Birthday, [Her Name] 🎉</h1>
-    <p>You make life brighter 💫</p>
+    <button onclick="playMusic()">🎵 Tap to Start the Magic</button>
+    
+    <h1>Happy Birthday, Adwita! 🎉</h1>
+    <p class="message">"The world is a little bit better just because you're in it. Your energy and kindness mean more than you know." ✨</p>
 
-    <button onclick="showSurprise()">Click for Surprise 💌</button>
+    <button onclick="showSurprise()">Click for a Surprise 💌</button>
 
-    <div id="surprise" style="display:none;">
-        <p>You're truly special ❤️</p>
+    <div id="surprise" style="display:none; margin-top: 20px;">
+        <p class="message">"I'm so glad we're friends. Here’s to another year of great conversations and even better memories!" ❤️</p>
 
-        <!-- Cake -->
-        <h2 onclick="cutCake()">🎂</h2>
-        <p id="cakeMsg"></p>
+        <div class="cake-display" id="cakeEmoji" onclick="cutCake()">🎂</div>
+        <p id="cakeMsg" style="font-weight: bold;">Tap the cake to cut it!</p>
 
-        <!-- Gallery (6 images) -->
         <div class="gallery">
-            <img src="photo1.jpg">
-            <img src="photo2.jpg">
-            <img src="photo3.jpg">
-            <img src="photo4.jpg">
-            <img src="photo5.jpg">
-            <img src="photo6.jpg">
+            <img src="p1.jpg">
+            <img src="p2.jpg">
+            <img src="p3.jpg">
+            <img src="p4.jpg">
+            <img src="p5.jpg">
+            <img src="p6.jpg">
         </div>
     </div>
 </div>
 
 <script>
-/* Try autoplay */
-let music = document.getElementById("music");
-music.volume = 0.7;
+const music = document.getElementById("music");
 
-/* Manual play (for mobile restriction) */
 function playMusic() {
     music.play();
 }
 
-/* Hearts */
+/* Hearts Generator */
 setInterval(() => {
-    let heart = document.createElement("div");
+    const heart = document.createElement("div");
     heart.className = "heart";
     heart.innerHTML = "💖";
     heart.style.left = Math.random() * 100 + "vw";
     document.body.appendChild(heart);
     setTimeout(() => heart.remove(), 6000);
-}, 300);
+}, 400);
 
-/* Balloons */
+/* Balloons Generator */
 setInterval(() => {
-    let balloon = document.createElement("div");
+    const balloon = document.createElement("div");
     balloon.className = "balloon";
-    balloon.innerHTML = "🎈";
+    const colors = ["🎈", "✨", "🌸", "🌟"];
+    balloon.innerHTML = colors[Math.floor(Math.random() * colors.length)];
     balloon.style.left = Math.random() * 100 + "vw";
     document.body.appendChild(balloon);
     setTimeout(() => balloon.remove(), 10000);
-}, 800);
+}, 900);
 
-/* Confetti */
-function confetti() {
-    for (let i = 0; i < 60; i++) {
-        let conf = document.createElement("div");
+function confettiBlast() {
+    for (let i = 0; i < 40; i++) {
+        const conf = document.createElement("div");
         conf.innerHTML = "🎊";
-        conf.style.position = "absolute";
+        conf.className = "heart"; 
         conf.style.left = Math.random() * 100 + "vw";
-        conf.style.top = Math.random() * 100 + "vh";
+        conf.style.bottom = "0";
+        conf.style.animationDuration = (Math.random() * 2 + 2) + "s";
         document.body.appendChild(conf);
-        setTimeout(() => conf.remove(), 2000);
+        setTimeout(() => conf.remove(), 3000);
     }
 }
 
-/* Surprise */
 function showSurprise() {
     document.getElementById("surprise").style.display = "block";
-    confetti();
+    confettiBlast();
+    // Scroll down to see the surprise on mobile
+    window.scrollBy({ top: 300, behavior: 'smooth' });
 }
 
-/* Cake */
 function cutCake() {
-    document.getElementById("cakeMsg").innerText = "Cake cut! 🍰 Make a wish ✨";
-    confetti();
+    const cake = document.getElementById("cakeEmoji");
+    if(cake.innerHTML === "🎂") {
+        cake.innerHTML = "🍰"; // Swap to slice
+        document.getElementById("cakeMsg").innerText = "Make a wish, Adwita! ✨";
+        confettiBlast();
+    }
 }
 </script>
 
 </body>
 </html>
+
